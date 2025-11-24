@@ -156,6 +156,33 @@ $pinjamanBaru = $builder
 
 ```
 
+### Dependency Injection (DI)
+```php
+
+// Dependency (Layanan yang dibutuhkan)
+CLASS DatabaseManager:
+    METHOD query(sql)
+        // ... Logika eksekusi DB ...
+
+// Klien (Kelas yang membutuhkan layanan)
+CLASS AnggotaService:
+    PRIVATE $db 
+
+    // Constructor Injection (DI melalui konstruktor)
+    METHOD __construct(DatabaseManager $dependency)
+        $this->db = $dependency // Menerima dependency
+
+    METHOD getProfil(id)
+        $this->db->query("SELECT * FROM Anggota WHERE id = id")
+
+// PENGGUNAAN:
+// 1. Buat Dependency
+$db = new DatabaseManager() 
+// 2. Suntikkan (Inject) Dependency ke Klien
+$service = new AnggotaService($db)
+
+```
+
 ## 5. Sequence & Activity Diagram
 ### Sequence Diagram
 - #### Simpanan
